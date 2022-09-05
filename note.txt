@@ -28,6 +28,12 @@ dotnet tool update --global dotnet-ef
 using DatingApp.DatingApp.API.Database;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DatingApp.DatingApp.API.Database.DataContext>(x => x.UseSqlServer(connectionString));
+or
+using FilmActorApp.Database;
+using Microsoft.EntityFrameworkCore;
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
+
 
 //migration: controller/manage Version of Database
 
@@ -62,5 +68,6 @@ git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/nguyenkhanhlinh2752001/MusicReviewApp-ASP.NET-Core.git
+git remote add origin https://github.com/nguyenkhanhlinh2752001/FilmReviewApp-ASP.NET-Core.git
 git push -u origin main
+
