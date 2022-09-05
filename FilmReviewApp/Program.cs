@@ -12,6 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add this code
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 //************Add this code**********
 builder.Services.AddScoped<IFilm, FilmRepository>();
 

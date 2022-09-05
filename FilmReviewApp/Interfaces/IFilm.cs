@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FilmReviewApp.Models;
 
 namespace FilmReviewApp.Interfaces
@@ -9,5 +5,9 @@ namespace FilmReviewApp.Interfaces
     public interface IFilm
     {
         ICollection<Film> GetFilms();
+        Film GetFilm(int id);
+        Film GetFilm(string name);
+        decimal GetFilmRating(int id);
+        bool FilmExists(int id);
     }
 }
