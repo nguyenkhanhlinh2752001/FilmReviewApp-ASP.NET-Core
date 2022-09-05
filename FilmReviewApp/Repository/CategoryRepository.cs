@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FilmActorApp.Database;
 using FilmReviewApp.Interfaces;
 using FilmReviewApp.Models;
@@ -22,17 +18,17 @@ namespace FilmReviewApp.Repository
 
         public ICollection<Category> GetCategories()
         {
-            throw new NotImplementedException();
+            return _context.Categories.ToList();
         }
 
         public Category GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return _context.Categories.Where(c=>c.Id == id).FirstOrDefault();
         }
 
         public ICollection<Film> GetFilmsByCategory(int id)
         {
-            throw new NotImplementedException();
+            return _context.FilmCategories.Where(c=>c.CategoryId == id).Select(c=>c.Film).ToList();
         }
     }
 }

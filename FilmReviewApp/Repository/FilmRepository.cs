@@ -35,7 +35,7 @@ namespace FilmReviewApp.Repository
         }
 
         public ICollection<Film> GetFilms(){
-            return _context.Films.OrderBy(f => f.Id).ToList();
+            return _context.Films.ToList();
         }
 
     }

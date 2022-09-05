@@ -17,6 +17,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //************Add this code**********
 builder.Services.AddScoped<IFilm, FilmRepository>();
+builder.Services.AddScoped<ICategory, CategoryRepository>();
 
 //****Connect Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
