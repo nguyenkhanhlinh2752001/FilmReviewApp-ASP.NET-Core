@@ -19,6 +19,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IFilm, FilmRepository>();
 builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<ICountry, CountryRepository>();
+builder.Services.AddScoped<IActor, ActorRepository>();
+builder.Services.AddScoped<IReview, ReviewRepository>();
+builder.Services.AddScoped<IReviewer, ReviewerRepository>();
 
 //****Connect Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
