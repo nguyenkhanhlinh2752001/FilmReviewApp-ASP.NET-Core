@@ -19,7 +19,7 @@ namespace FilmReviewApp.Repository
 
         public bool CreateActor(Actor actor)
         {
-            _context.Add(actor);
+            _context.Actors.Add(actor);
             return Save();
         }
 
@@ -46,6 +46,12 @@ namespace FilmReviewApp.Repository
         public bool Save()
         {
             return _context.SaveChanges() > 0 ? true : false;
+        }
+
+        public bool UpdateActor(Actor actor)
+        {
+            _context.Actors.Update(actor);
+            return Save();
         }
     }
 }

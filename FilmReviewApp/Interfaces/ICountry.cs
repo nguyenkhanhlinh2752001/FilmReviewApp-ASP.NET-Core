@@ -14,6 +14,7 @@ namespace FilmReviewApp.Interfaces
         ICollection<Actor> GetActorsByCountry(int id);
         bool CountryExists(int id);
         bool CreateCountry(Country country);
+        bool UpdateCountry(Country country);
         bool Save();
     }
 }

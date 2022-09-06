@@ -19,7 +19,7 @@ namespace FilmReviewApp.Repository
 
         public bool CreateReviewer(Reviewer reviewer)
         {
-            _context.Add(reviewer);
+            _context.Reviewers.Add(reviewer);
             return Save();
         }
 
@@ -47,6 +47,12 @@ namespace FilmReviewApp.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdateReviewer(Reviewer reviewer)
+        {
+            _context.Reviewers.Update(reviewer);
+            return Save();
         }
     }
 }

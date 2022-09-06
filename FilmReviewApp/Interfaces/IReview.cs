@@ -9,6 +9,7 @@ namespace FilmReviewApp.Interfaces
         ICollection<Review> GetReviewsByFilm(int id);
         bool ReviewExists(int id);
         bool CreateReview(Review review);
+        bool UpdateReview(Review review);
         bool Save();
     }
 }

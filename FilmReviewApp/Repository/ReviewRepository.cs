@@ -19,7 +19,7 @@ namespace FilmReviewApp.Repository
 
         public bool CreateReview(Review review)
         {
-            _context.Add(review);
+            _context.Reviews.Add(review);
             return Save();
         }
 
@@ -47,6 +47,12 @@ namespace FilmReviewApp.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdateReview(Review review)
+        {
+            _context.Reviews.Update(review);
+            return Save();
         }
     }
 }

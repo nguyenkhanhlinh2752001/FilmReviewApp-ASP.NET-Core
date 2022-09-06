@@ -57,6 +57,16 @@ namespace FilmReviewApp.Controllers
             }
             return Ok("Category created successfully");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCategory( int id, [FromBody] CategoryDTO categoryDto){
+            if(!_icategory.CategoryExists(id)) return NotFound();
+            if(!ModelState.IsValid) return BadRequest();
+            categoryDto.Id=id;
+            var category = _mapper.Map<Category>(categoryDto);
+            if(!_icategory.UpdateCategory(category)) return StatusCode(500, ModelState);
+            return Ok(category);
+        }
         
     }
 }

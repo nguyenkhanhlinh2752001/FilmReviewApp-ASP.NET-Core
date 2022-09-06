@@ -26,9 +26,9 @@ namespace FilmReviewApp.Repository
                 Film = film,
                 Category = category
             };
-            _context.Add(filmActor);
-            _context.Add(filmCategory);
-            _context.Add(film);
+            _context.FilmActors.Add(filmActor);
+            _context.FilmCategories.Add(filmCategory);
+            _context.Films.Add(film);
 
             return Save();
 
@@ -65,6 +65,12 @@ namespace FilmReviewApp.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdateFilm(int actorId, int categoryId, Film film)
+        {
+            _context.Films.Update(film);
+            return Save();
         }
     }
 }

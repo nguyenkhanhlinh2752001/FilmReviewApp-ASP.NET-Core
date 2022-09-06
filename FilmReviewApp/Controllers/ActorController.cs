@@ -73,5 +73,15 @@ namespace FilmReviewApp.Controllers
             }
             return Ok("Actor created successfully");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateActor( int id, [FromBody] ActorDTO actorDto){
+            if(!_iactor.ActorExists(id)) return NotFound();
+            if(!ModelState.IsValid) return BadRequest();
+            actorDto.Id=id;
+            var actor = _mapper.Map<Actor>(actorDto);
+            if(!_iactor.UpdateActor(actor)) return StatusCode(500, ModelState);
+            return Ok(actor);
+        }
     }
 }

@@ -69,5 +69,15 @@ namespace FilmReviewApp.Controllers
             }
             return Ok("Review created successfully");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateReview( int id, [FromBody] ReviewDTO reviewDto ){
+            if(!_ireview.ReviewExists(id)) return NotFound();
+            if(!ModelState.IsValid) return BadRequest();
+            reviewDto.Id=id;
+            var review = _mapper.Map<Review>(reviewDto);
+            if(!_ireview.UpdateReview(review)) return StatusCode(500, ModelState);
+            return Ok(review);
+        }
     }
 }

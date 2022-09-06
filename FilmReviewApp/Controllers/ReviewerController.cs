@@ -59,5 +59,15 @@ namespace FilmReviewApp.Controllers
             }
             return Ok(reviewer);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateReviewer( int id, [FromBody] ReviewerDTO reviewerDto ){
+            if(!_ireviewer.ReviewerExists(id)) return NotFound();
+            if(!ModelState.IsValid) return BadRequest();
+            reviewerDto.Id=id;
+            var reviewer = _mapper.Map<Reviewer>(reviewerDto);
+            if(!_ireviewer.UpdateReviewer(reviewer)) return StatusCode(500, ModelState);
+            return Ok(reviewer);
+        }
     }
 }

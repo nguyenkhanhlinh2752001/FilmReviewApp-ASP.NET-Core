@@ -12,9 +12,11 @@ namespace FilmReviewApp.Controllers
     {
         private readonly IFilm _ifilm;
         private readonly IMapper _mapper;
-        public FilmController(IFilm ifilm, IMapper mapper){
+        private readonly IActor _iactor;
+        public FilmController( IMapper mapper,IFilm ifilm, IActor iactor){
             _mapper = mapper;
             _ifilm = ifilm;      
+            _iactor = iactor;
         }
 
         [HttpGet]
@@ -57,6 +59,16 @@ namespace FilmReviewApp.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok("Film created successfully");
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateFilm( int id, [FromQuery] int actorId, [FromQuery] int categoryId, [FromBody] FilmDTO filmDto ){
+            if(!_ifilm.FilmExists(id)) return NotFound();
+            if(!ModelState.IsValid) return BadRequest();
+            filmDto.Id=id;
+            var film = _mapper.Map<Film>(filmDto);
+            if(!_ifilm.UpdateFilm( actorId, categoryId, film)) return StatusCode(500, ModelState);
+            return Ok(film);
         }
     }
 }

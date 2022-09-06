@@ -18,7 +18,7 @@ namespace FilmReviewApp.Repository
 
         public bool CreateCountry(Country country)
         {
-            _context.Add(country);
+            _context.Countries.Add(country);
             return Save();
         }
 
@@ -45,6 +45,12 @@ namespace FilmReviewApp.Repository
         public bool Save()
         {
             return _context.SaveChanges() > 0 ? true : false;
+        }
+
+        public bool UpdateCountry(Country country)
+        {
+            _context.Countries.Update(country);
+            return Save();
         }
     }
 }

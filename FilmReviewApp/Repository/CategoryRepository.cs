@@ -4,7 +4,7 @@ using FilmReviewApp.Models;
 
 namespace FilmReviewApp.Repository
 {
-    public class CategoryRepository : ICategory
+    public class CategoryRepository : ICategory 
     {
         private readonly DataContext _context; 
         
@@ -18,7 +18,7 @@ namespace FilmReviewApp.Repository
 
         public bool CreateCategory(Category category)
         {
-            _context.Add(category);
+            _context.Categories.Add(category);
             return Save();
         }
 
@@ -40,6 +40,12 @@ namespace FilmReviewApp.Repository
         public bool Save()
         {
             return _context.SaveChanges()> 0 ? true : false;
+        }
+
+        public bool UpdateCategory(Category category)
+        {
+            _context.Categories.Update(category);
+            return Save();
         }
     }
 }

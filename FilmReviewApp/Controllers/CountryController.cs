@@ -68,6 +68,16 @@ namespace FilmReviewApp.Controllers
             }
             return Ok("Country created successfully");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCountry( int id, [FromBody] CountryDTO countryDto ){
+            if(!_icountry.CountryExists(id)) return NotFound();
+            if(!ModelState.IsValid) return BadRequest();
+            countryDto.Id=id;
+            var country = _mapper.Map<Country>(countryDto);
+            if(!_icountry.UpdateCountry(country)) return StatusCode(500, ModelState);
+            return Ok(country);
+        }
         
     }
 }

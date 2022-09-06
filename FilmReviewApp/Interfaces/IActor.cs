@@ -14,6 +14,7 @@ namespace FilmReviewApp.Interfaces
         ICollection<Film> GetFilmsByActor(int id);
         bool ActorExists(int id);
         bool CreateActor(Actor actor);
+        bool UpdateActor(Actor actor);
         bool Save();
     }
 }
