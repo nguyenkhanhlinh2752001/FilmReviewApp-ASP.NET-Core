@@ -13,5 +13,7 @@ namespace FilmReviewApp.Interfaces
         Country GetCountryByActor(int id);
         ICollection<Actor> GetActorsByCountry(int id);
         bool CountryExists(int id);
+        bool CreateCountry(Country country);
+        bool Save();
     }
 }

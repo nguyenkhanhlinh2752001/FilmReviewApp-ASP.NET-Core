@@ -1,11 +1,12 @@
 using AutoMapper;
 using FilmReviewApp.DTO;
 using FilmReviewApp.Interfaces;
+using FilmReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmReviewApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class FilmController : Controller
     {
@@ -42,6 +43,20 @@ namespace FilmReviewApp.Controllers
             if(!ModelState.IsValid)
                 return BadRequest();
             return Ok(rating);
+        }
+
+        [HttpPost]
+        public IActionResult CreateFilm([FromQuery] int actorId, [FromQuery] int categoryId, [FromBody] FilmDTO filmDto){
+
+            if(!ModelState.IsValid) return BadRequest();
+
+            var film = _mapper.Map<Film>(filmDto);
+            
+            if(!_ifilm.CreateFilm(actorId, categoryId, film)){
+                ModelState.AddModelError("", "Error");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Film created successfully");
         }
     }
 }

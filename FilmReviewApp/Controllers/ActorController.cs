@@ -1,18 +1,21 @@
 using AutoMapper;
 using FilmReviewApp.DTO;
 using FilmReviewApp.Interfaces;
+using FilmReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmReviewApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ActorController: Controller
     {
         private readonly IMapper _mapper;
         private readonly IActor _iactor;
-        public ActorController(IActor iactor, IMapper mapper)
+        private readonly ICountry _icountry;
+        public ActorController(IMapper mapper, IActor iactor, ICountry icountry)
         {
+            _icountry = icountry;
             _iactor = iactor;
             _mapper = mapper;
         }
@@ -55,6 +58,20 @@ namespace FilmReviewApp.Controllers
             if(!ModelState.IsValid)
                 return BadRequest();
             return Ok(films);
+        }
+
+        [HttpPost]
+        public IActionResult CreateActor( [FromQuery] int countryId, [FromBody] ActorDTO actorDto){
+            if(!ModelState.IsValid) return BadRequest();
+
+            var actor = _mapper.Map<Actor>(actorDto);
+            actor.Country=_icountry.GetCountry(countryId);
+
+            if(!_iactor.CreateActor(actor)){
+                ModelState.AddModelError("", "Error");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Actor created successfully");
         }
     }
 }

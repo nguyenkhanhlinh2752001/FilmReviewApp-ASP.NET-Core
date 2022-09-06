@@ -5,20 +5,25 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FilmReviewApp.DTO;
 using FilmReviewApp.Interfaces;
+using FilmReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmReviewApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ReviewController: Controller
     {
-        private readonly IMapper _mapper;
         private readonly IReview _ireview;
+        public readonly IReviewer _ireviewer;
+        private readonly IFilm _ifilm;
+        private readonly IMapper _mapper;
 
-        public ReviewController(IReview ireview, IMapper mapper)
+        public ReviewController(IReview ireview, IFilm ifilm, IReviewer ireviewer, IMapper mapper)
         {
             _ireview = ireview;
+            _ireviewer = ireviewer;
+            _ifilm = ifilm;
             _mapper = mapper;         
         }
 
@@ -48,6 +53,21 @@ namespace FilmReviewApp.Controllers
             if(!ModelState.IsValid)
                 return BadRequest();
             return Ok(reviews);
+        }
+
+        [HttpPost]
+        public IActionResult CreateReview( [FromQuery] int reviewerId, [FromQuery] int filmId, [FromBody] ReviewDTO reviewDto){
+            if(!ModelState.IsValid) return BadRequest();
+
+            var review = _mapper.Map<Review>(reviewDto);
+            review.Reviewer = _ireviewer.GetReviewer(reviewerId);
+            review.Film=_ifilm.GetFilm(filmId);
+
+            if(!_ireview.CreateReview(review)){
+                ModelState.AddModelError("", "Error");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Review created successfully");
         }
     }
 }

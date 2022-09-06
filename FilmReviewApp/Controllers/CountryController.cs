@@ -1,11 +1,12 @@
 using AutoMapper;
 using FilmReviewApp.DTO;
 using FilmReviewApp.Interfaces;
+using FilmReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmReviewApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CountryController: Controller
     {
@@ -54,6 +55,18 @@ namespace FilmReviewApp.Controllers
             if(!ModelState.IsValid)
                 return BadRequest();
             return Ok(country);
+        }
+
+        [HttpPost]
+        public IActionResult CreateCountry( [FromBody] CountryDTO countryDto){
+            if(!ModelState.IsValid) return BadRequest();
+
+            var country = _mapper.Map<Country>(countryDto);
+            
+            if(!_icountry.CreateCountry(country)){
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Country created successfully");
         }
         
     }

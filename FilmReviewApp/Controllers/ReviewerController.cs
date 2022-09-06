@@ -1,11 +1,12 @@
 using AutoMapper;
 using FilmReviewApp.DTO;
 using FilmReviewApp.Interfaces;
+using FilmReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmReviewApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ReviewerController: Controller
     {
@@ -44,6 +45,19 @@ namespace FilmReviewApp.Controllers
             if(!ModelState.IsValid)
                 return BadRequest();
             return Ok(reviews);
+        }
+
+        [HttpPost]
+        public IActionResult CreateReviewer( [FromBody] ReviewerDTO reviewerDto){
+            if(!ModelState.IsValid) return BadRequest();
+
+            var reviewer = _mapper.Map<Reviewer>(reviewerDto);
+
+            if(!_ireviewer.CreateReviewer(reviewer)){
+                ModelState.AddModelError("", "Error");
+                return StatusCode(500, ModelState);
+            }
+            return Ok(reviewer);
         }
     }
 }

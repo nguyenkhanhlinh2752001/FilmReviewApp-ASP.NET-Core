@@ -9,5 +9,7 @@ namespace FilmReviewApp.Interfaces
         Film GetFilm(string name);
         decimal GetFilmRating(int id);
         bool FilmExists(int id);
+        bool CreateFilm(int actorId, int categoryId, Film film);
+        bool Save();
     }
 }

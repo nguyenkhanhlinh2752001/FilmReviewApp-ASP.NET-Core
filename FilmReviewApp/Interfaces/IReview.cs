@@ -8,5 +8,7 @@ namespace FilmReviewApp.Interfaces
         Review GetReview(int id);
         ICollection<Review> GetReviewsByFilm(int id);
         bool ReviewExists(int id);
+        bool CreateReview(Review review);
+        bool Save();
     }
 }

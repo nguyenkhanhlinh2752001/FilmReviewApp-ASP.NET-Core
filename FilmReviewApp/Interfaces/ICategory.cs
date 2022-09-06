@@ -8,6 +8,9 @@ namespace FilmReviewApp.Interfaces
         Category GetCategory(int id);
         ICollection<Film> GetFilmsByCategory(int id);
         bool CategoryExists(int id);
+
+        bool CreateCategory(Category category);
+        bool Save();
         
     }
 }

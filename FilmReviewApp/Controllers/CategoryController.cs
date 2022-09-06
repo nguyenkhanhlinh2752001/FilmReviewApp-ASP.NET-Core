@@ -1,11 +1,12 @@
 using AutoMapper;
 using FilmReviewApp.DTO;
 using FilmReviewApp.Interfaces;
+using FilmReviewApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmReviewApp.Controllers
 {
-    [Route("api/[controller]s")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CategoryController: Controller
     {
@@ -46,5 +47,16 @@ namespace FilmReviewApp.Controllers
                 return BadRequest();
             return Ok(films);
         }
+
+        [HttpPost]
+        public IActionResult CreateCategory( [FromBody] CategoryDTO categoryDto){
+            if(!ModelState.IsValid) return BadRequest();
+            var category = _mapper.Map<Category>(categoryDto);         
+            if(!_icategory.CreateCategory(category)){
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Category created successfully");
+        }
+        
     }
 }

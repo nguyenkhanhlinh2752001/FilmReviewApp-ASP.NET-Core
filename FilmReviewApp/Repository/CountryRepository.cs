@@ -16,6 +16,12 @@ namespace FilmReviewApp.Repository
             return _context.Countries.Any(c=>c.Id == id);
         }
 
+        public bool CreateCountry(Country country)
+        {
+            _context.Add(country);
+            return Save();
+        }
+
         public ICollection<Actor> GetActorsByCountry(int countryId)
         {
             return _context.Actors.Where(c=>c.Country.Id == countryId).ToList();
@@ -34,6 +40,11 @@ namespace FilmReviewApp.Repository
         public Country GetCountryByActor(int actorId)
         {
             return _context.Actors.Where(a=>a.Id== actorId).Select(a=>a.Country).FirstOrDefault();
+        }
+
+        public bool Save()
+        {
+            return _context.SaveChanges() > 0 ? true : false;
         }
     }
 }

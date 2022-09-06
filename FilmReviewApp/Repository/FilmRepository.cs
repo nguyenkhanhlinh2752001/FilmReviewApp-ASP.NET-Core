@@ -11,6 +11,29 @@ namespace FilmReviewApp.Repository
             _context = context;
         }
 
+        public bool CreateFilm(int actorId, int categoryId, Film film)
+        {
+            var actor = _context.Actors.Where(a => a.Id == actorId).FirstOrDefault();
+            var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+            var filmActor = new FilmActor()
+            {
+                Film = film,
+                Actor = actor,
+            };
+
+            var filmCategory = new FilmCategory()
+            {
+                Film = film,
+                Category = category
+            };
+            _context.Add(filmActor);
+            _context.Add(filmCategory);
+            _context.Add(film);
+
+            return Save();
+
+        }
+
         public bool FilmExists(int id)
         {
             return _context.Films.Any(f=>f.Id == id);
@@ -38,5 +61,10 @@ namespace FilmReviewApp.Repository
             return _context.Films.ToList();
         }
 
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }
