@@ -22,6 +22,12 @@ namespace FilmReviewApp.Repository
             return Save();
         }
 
+        public bool DeleteCountry(Country country)
+        {
+            _context.Countries.Remove(country);
+            return Save();
+        }
+
         public ICollection<Actor> GetActorsByCountry(int countryId)
         {
             return _context.Actors.Where(c=>c.Country.Id == countryId).ToList();

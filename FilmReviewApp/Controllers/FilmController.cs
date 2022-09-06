@@ -70,5 +70,14 @@ namespace FilmReviewApp.Controllers
             if(!_ifilm.UpdateFilm( actorId, categoryId, film)) return StatusCode(500, ModelState);
             return Ok(film);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteFilm(int id){
+            if(!_ifilm.FilmExists(id)) return NotFound();
+            var film = _ifilm.GetFilm(id);
+            if(!ModelState.IsValid) return BadRequest();
+            if(!_ifilm.DeleteFilm(film)) return StatusCode(500, ModelState);
+            return NoContent();
+        }
     }
 }

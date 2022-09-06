@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FilmActorApp.Database;
 using FilmReviewApp.Interfaces;
 using FilmReviewApp.Models;
@@ -20,6 +16,12 @@ namespace FilmReviewApp.Repository
         public bool CreateReview(Review review)
         {
             _context.Reviews.Add(review);
+            return Save();
+        }
+
+        public bool DeleteReview(Review review)
+        {
+             _context.Reviews.Remove(review);
             return Save();
         }
 

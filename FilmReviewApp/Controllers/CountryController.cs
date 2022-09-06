@@ -78,6 +78,15 @@ namespace FilmReviewApp.Controllers
             if(!_icountry.UpdateCountry(country)) return StatusCode(500, ModelState);
             return Ok(country);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCountry(int id){
+            if(!_icountry.CountryExists(id)) return NotFound();
+            var country = _icountry.GetCountry(id);
+            if(!ModelState.IsValid) return BadRequest();
+            if(!_icountry.DeleteCountry(country)) return StatusCode(500, ModelState);
+            return NoContent();
+        }
         
     }
 }

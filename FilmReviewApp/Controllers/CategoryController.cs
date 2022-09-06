@@ -67,6 +67,15 @@ namespace FilmReviewApp.Controllers
             if(!_icategory.UpdateCategory(category)) return StatusCode(500, ModelState);
             return Ok(category);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(int id){
+            if(!_icategory.CategoryExists(id)) return NotFound();
+            var category = _icategory.GetCategory(id);
+            if(!ModelState.IsValid) return BadRequest();
+            if(!_icategory.DeleteCategory(category)) return StatusCode(500, ModelState);
+            return NoContent();
+        }
         
     }
 }

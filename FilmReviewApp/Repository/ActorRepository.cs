@@ -23,6 +23,12 @@ namespace FilmReviewApp.Repository
             return Save();
         }
 
+        public bool DeleteActor(Actor actor)
+        {
+            _context.Actors.Remove(actor);
+            return Save();
+        }
+
         public Actor GetActor(int id)
         {
             return _context.Actors.Where(a=>a.Id == id).FirstOrDefault();

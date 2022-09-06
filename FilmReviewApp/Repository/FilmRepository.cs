@@ -34,6 +34,12 @@ namespace FilmReviewApp.Repository
 
         }
 
+        public bool DeleteFilm(Film film)
+        {
+            _context.Films.Remove(film);
+            return Save();
+        }
+
         public bool FilmExists(int id)
         {
             return _context.Films.Any(f=>f.Id == id);

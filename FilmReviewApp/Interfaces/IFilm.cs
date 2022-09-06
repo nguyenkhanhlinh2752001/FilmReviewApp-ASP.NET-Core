@@ -11,6 +11,7 @@ namespace FilmReviewApp.Interfaces
         bool FilmExists(int id);
         bool CreateFilm(int actorId, int categoryId, Film film);
         bool UpdateFilm(int actorId, int categoryId, Film film);
+        bool DeleteFilm(Film film);
         bool Save();
     }
 }

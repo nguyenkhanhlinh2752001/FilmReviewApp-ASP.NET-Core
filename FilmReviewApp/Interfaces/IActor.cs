@@ -15,6 +15,7 @@ namespace FilmReviewApp.Interfaces
         bool ActorExists(int id);
         bool CreateActor(Actor actor);
         bool UpdateActor(Actor actor);
+        bool DeleteActor(Actor actor);
         bool Save();
     }
 }

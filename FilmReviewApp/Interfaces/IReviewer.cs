@@ -10,6 +10,7 @@ namespace FilmReviewApp.Interfaces
         bool ReviewerExists(int id);
         bool CreateReviewer(Reviewer reviewer);
         bool UpdateReviewer(Reviewer reviewer);
+        bool DeleteReviewer(Reviewer reviewer);
         bool Save();
 
     }

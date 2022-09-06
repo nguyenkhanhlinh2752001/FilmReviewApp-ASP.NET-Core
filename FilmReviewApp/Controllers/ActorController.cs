@@ -32,12 +32,12 @@ namespace FilmReviewApp.Controllers
         public IActionResult GetActor(int id){
             if(!_iactor.ActorExists(id))
                 return NotFound();
-            var category = _mapper.Map<ActorDTO>(_iactor.GetActor(id));
+            var Actor = _mapper.Map<ActorDTO>(_iactor.GetActor(id));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok(category);
+            return Ok(Actor);
         }
 
         [HttpGet("film/{id}")]
@@ -82,6 +82,15 @@ namespace FilmReviewApp.Controllers
             var actor = _mapper.Map<Actor>(actorDto);
             if(!_iactor.UpdateActor(actor)) return StatusCode(500, ModelState);
             return Ok(actor);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteActor(int id){
+            if(!_iactor.ActorExists(id)) return NotFound();
+            var actor = _iactor.GetActor(id);
+            if(!ModelState.IsValid) return BadRequest();
+            if(!_iactor.DeleteActor(actor)) return StatusCode(500, ModelState);
+            return NoContent();
         }
     }
 }

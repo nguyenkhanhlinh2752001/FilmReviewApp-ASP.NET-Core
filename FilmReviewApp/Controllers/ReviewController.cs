@@ -79,5 +79,15 @@ namespace FilmReviewApp.Controllers
             if(!_ireview.UpdateReview(review)) return StatusCode(500, ModelState);
             return Ok(review);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteReview(int id){
+            if(!_ireview.ReviewExists(id)) return NotFound();
+            var review = _ireview.GetReview(id);
+            if(!ModelState.IsValid) return BadRequest();
+            if(!_ireview.DeleteReview(review)) return StatusCode(500, ModelState);
+            return NoContent();
+        }
+        
     }
 }
